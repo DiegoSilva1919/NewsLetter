@@ -1,0 +1,53 @@
+@use '../../styles/mixins'
+@use '../../styles/variables'
+
+.div-thanks
+    padding: 30px 10px
+
+    @include mixins.desktop
+        height: 100vh
+        background: #36384d
+        display: flex
+        align-items: center
+        justify-content: center
+
+    img
+        height: 50px
+        margin-bottom: 20px
+        margin-right: 17em
+
+        @include mixins.desktop
+            height: 50px
+            margin-right: 22em
+
+    main
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        margin-top: 5em
+        width: 100%
+
+        @include mixins.desktop
+            height: 500px
+            width: 500px
+            padding: 30px
+            border-radius: 40px
+            background: variables.$body-bg-color
+
+    h2
+        font-size: 40px
+
+    p
+        @include mixins.typography
+        margin-top: 20px
+        margin-bottom: 70%
+
+        @include mixins.desktop
+            margin-bottom: 20%
+
+    .link
+        @include mixins.link
+
+        @include mixins.desktop
+            @include mixins.link

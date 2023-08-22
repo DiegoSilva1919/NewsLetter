@@ -1,0 +1,24 @@
+@use './variables'
+
+@mixin typography
+    font-size: 16px
+    color: variables.$text-color-secondary
+
+@mixin link
+    width: 100%
+    height: 3em
+    border-radius: variables.$tag-border-radius
+    background: variables.$button-color
+    border: none
+    color: white
+    display: flex
+    align-items: center
+    justify-content: center
+    text-decoration: none
+
+    &:active
+        background: variables.$color-active-alert
+
+@mixin desktop
+    @media(min-width: 600px)
+        @content
