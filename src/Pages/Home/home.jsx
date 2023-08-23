@@ -33,7 +33,7 @@ function Home() {
         <img
           className="SignUpDesktop"
           src={SignUpDesktop}
-          alt="imagem do sign-up"
+          alt="imagem do sign-up-Desktop"
         />
         <main className="MainContent">
           <h1>Stay updated!</h1>
