@@ -1,29 +1,33 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+/* eslint-disable prettier/prettier */
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import IconList from '../../assets/icon-list.svg'
-import SignUpDesktop from '../../assets/illustration-sign-up-desktop.svg'
-import SignUp from '../../assets/illustration-sign-up-mobile.svg'
-import AlertErro from '../../components/alertErro'
+import IconList from "../../assets/icon-list.svg";
+import SignUpDesktop from "../../assets/illustration-sign-up-desktop.svg";
+import SignUp from "../../assets/illustration-sign-up-mobile.svg";
+import AlertErro from "../../components/alertErro";
 
-import './home.sass'
-import '../../styles/globalStyles.sass'
+import "./home.sass";
+import "../../styles/globalStyles.sass";
 
 function Home() {
-  const [showError, setShowError] = useState(false)
-  const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.com[a-zA-Z]{2,4}$/.test()
+  const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [showError, setShowError] = useState(false);
+  const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  function validateEmail(input) {
-    if(input.target.value.toLowerCase() != emailFormat) {
-      return setShowError(true);
-    } else {
-      return setShowError(false);
-    }
+  function validateEmail() {
+    const isValid = emailFormat.test(email);
+    setShowError(isValid);
+    return isValid;
   }
 
-  function onChangeInput(input) {
-    validateEmail(input);
-    console.log(input.target.value);
+  function onSubmitForm(e) {
+    e.preventDefault();
+
+    if (validateEmail()) {
+      navigate.push("/thanks");
+    }
   }
 
   return (
@@ -52,25 +56,28 @@ function Home() {
             And much more!
           </p>
 
-          <label>
-            <div className="div-Label">
-              <p className="p-Label">Email address</p>
-              <AlertErro showError={showError} />
-            </div>
+          <form onSubmit={onSubmitForm}>
+            <label>
+              <div className="div-Label">
+                <p className="p-Label">Email address</p>
+                <AlertErro showError={showError} />
+              </div>
 
-            <input
-              onChange={onChangeInput}
-              type="email"
-              name="email"
-              placeholder="email@company.com"
-            />
-          </label>
-          <Link className="link" to="/thanks">
-            Subscribe to monthly newsletter
-          </Link>
-        </main>{' '}
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                name="email"
+                required="required"
+                placeholder="email@company.com"
+              />
+            </label>
+            <button className="link" type="submit">
+              Subscribe to monthly newsletter
+            </button>
+          </form>
+        </main>
       </div>
     </div>
-  )
+  );
 }
-export default Home
+export default Home;
