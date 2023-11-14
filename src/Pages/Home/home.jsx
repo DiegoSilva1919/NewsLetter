@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import IconList from "../../assets/icon-list.svg";
 import SignUpDesktop from "../../assets/illustration-sign-up-desktop.svg";
 import SignUp from "../../assets/illustration-sign-up-mobile.svg";
-import AlertErro from "../../components/alertErro";
 
 import "./home.sass";
 import "../../styles/globalStyles.sass";
@@ -13,12 +12,11 @@ import "../../styles/globalStyles.sass";
 function Home() {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
-  const [showError, setShowError] = useState(false);
+  // const [showError, setShowError] = useState();
   const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   function validateEmail() {
     const isValid = emailFormat.test(email);
-    setShowError(isValid);
     return isValid;
   }
 
@@ -60,7 +58,9 @@ function Home() {
             <label>
               <div className="div-Label">
                 <p className="p-Label">Email address</p>
-                <AlertErro showError={showError} />
+                {/* {showError ? (
+                  <p className="alert">Valid email required</p>
+                ) : null} */}
               </div>
 
               <input
