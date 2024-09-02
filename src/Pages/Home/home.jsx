@@ -11,21 +11,34 @@ import "../../styles/globalStyles.sass";
 
 function Home() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState();
-  // const [showError, setShowError] = useState();
+  const [showError, setShowError] = useState(false);
   const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  function validateEmail() {
+  function validateEmail(email) {
     const isValid = emailFormat.test(email);
-    return isValid;
+
+    if (!isValid) {
+      return setShowError(true)
+    }
+
+    return isValid
   }
 
   function onSubmitForm(e) {
     e.preventDefault();
+    const email = e.target.email.value
+    const isEmailValid = validateEmail(email)
 
-    if (validateEmail()) {
-      navigate.push("/thanks");
+    if (isEmailValid) {
+      return navigate("/thanks", { state: { email: email } })
     }
+
+    setShowError(true)
+  }
+
+  function handleInputChange(e) {
+    setShowError(false)
+    validateEmail(e.target.value)
   }
 
   return (
@@ -58,13 +71,11 @@ function Home() {
             <label>
               <div className="div-Label">
                 <p className="p-Label">Email address</p>
-                {/* {showError ? (
-                  <p className="alert">Valid email required</p>
-                ) : null} */}
+                {showError && <p className="alert">Valid email required</p>}
               </div>
 
               <input
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInputChange}
                 type="email"
                 name="email"
                 required="required"
